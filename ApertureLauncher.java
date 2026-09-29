@@ -3,6 +3,7 @@ import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.sound.sampled.*;
 
 public class ApertureLauncher extends JFrame {
     private static final String SAVE_FILE = "pirate_steam_db.txt";
@@ -39,7 +40,10 @@ public class ApertureLauncher extends JFrame {
         addGameBtn.setFont(new Font("Arial", Font.BOLD, 14));
         addGameBtn.setBackground(COLOR_ACCENT); addGameBtn.setForeground(Color.BLACK);
         addGameBtn.setFocusable(false);
-        addGameBtn.addActionListener(e -> showAddGameDialog());
+        addGameBtn.addActionListener(e -> {
+            playTone(600, 80, 0.3);
+            showAddGameDialog();
+        });
 
         topPanel.add(titleLabel, BorderLayout.WEST);
         topPanel.add(addGameBtn, BorderLayout.EAST);
@@ -118,6 +122,7 @@ public class ApertureLauncher extends JFrame {
             playBtn.setFocusable(false);
 
             playBtn.addActionListener(e -> {
+                playTone(880, 150, 0.5);
                 try {
                     File file = new File(game.path);
                     if (!file.exists()) {
